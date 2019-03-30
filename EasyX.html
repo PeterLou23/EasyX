@@ -49,17 +49,58 @@ input[type=text]:focus {
  font-size: 70px;
   }
 
+  #map{
+    height: 100%;
+    width: 98%;
+    padding-left: 1%;
+    padding-right: 1%;
+  }
+
   </style>
   </head>
   <body>
     <div class="header">
     <p> EasyX </p>
     </div>
-  <form>
-    <input type="text" name="search" value="I'm in....">
-  </form>
+    <form>
+      <input type="text" name="search" value="I'm in....">
+    </form>
     <video autoplay muted loop id="myVideo">
-    <source src="ocean.mp4" type="video/mp4"> 
+      <source src="ocean.mp4" type="video/mp4"> 
     </video>
+    <div id=map>
+      <script>
+        var map;
+        var lat, lon;
+        function initMap() {
+          // Read the location from user's broswer if not use default values
+          lat = 33.749
+          lon = -84.388
+
+          map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: lat, lng: lon}, 
+            zoom: 15
+          }); 
+        }
+      </script>
+      <div>
+        <!--
+        <script>
+          // Format for request from places api
+          // https://maps.googleapis.com/maps/api/place/nearbysearch/output?parameters
+          //https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&keyword=cruise&key=YOUR_API_KEY
+          var lat, long
+          // looking for places with tag <food>, <train-station>, <transit_station>
+          request = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat +","+ lon + "&radius=500&type=restaurant&keyword=cruise&key=AIzaSyALDxfdzvnv8HXGwocG3Hs8dwzZmeFzByA"
+          //send request
+          var result = request
+          result = JSON.parse(result)
+          print(result)
+
+        </script>
+        -->
+      </div>
+    </div>
+  
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALDxfdzvnv8HXGwocG3Hs8dwzZmeFzByA&callback=initMap" async defer></script>
   </body>
