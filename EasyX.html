@@ -1,0 +1,64 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  #myVideo{
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        min-width: 100%;
+        min-height: 100%;
+        z-index: -1;
+      }
+      .content {
+        position: fixed;
+        width: 100%;
+      };
+  body{
+    font-family: Arial;
+    margin:0
+  }
+  input[type=text] {
+  top=50%;
+  width: 130px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  background-color: white;
+  background-image: url('searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 10px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+.form{
+  position: absolute;
+  right:80px;
+  left:90px;
+
+}
+input[type=text]:focus {
+  width: 100%;
+}
+  .header{
+    padding: 60px;
+ text-align: center;
+ color: white;
+ font-size: 70px;
+  }
+
+  </style>
+  </head>
+  <<body>
+    <div class="header">
+    <p> EasyX </p>
+    </div>
+  <form>
+    <<input type="text" name="search" value="I'm in....">
+  </form>
+    <video autoplay muted loop id="myVideo">
+    <source src="ocean.mp4" type="video/mp4">
+    </video>
+  </body>
