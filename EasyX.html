@@ -69,13 +69,13 @@ input[type=text]:focus {
       <source src="ocean.mp4" type="video/mp4">
     </video>
     <div id=map>
+      <div>
+      </div>
       <script>
         var map;
         var lat, lon;
         function initMap() {
           // Read the location from user's broswer if not use default values
-          var lat;
-          var lon;
           if(navigator.geolocation){
             varnavigator.geolocation.getCurrentPosition(setPosition)
           }else{
@@ -91,14 +91,10 @@ input[type=text]:focus {
           lon = position.cord.longitude;
           lat= position.cord.latitude;
         }
-      </script>
-      <div>
 
-        <script>
           // Format for request from places api
           // https://maps.googleapis.com/maps/api/place/nearbysearch/output?parameters
           //https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&keyword=cruise&key=YOUR_API_KEY
-          var lat, long
           // looking for places with tag <food>, <train-station>, <transit_station>
           request = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat +","+ lon + "&radius=500&type=restaurant&keyword=cruise&key=AIzaSyALDxfdzvnv8HXGwocG3Hs8dwzZmeFzByA"
           //send request
@@ -107,7 +103,6 @@ input[type=text]:focus {
           print(result)
 
         </script>
-      </div>
     </div>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyALDxfdzvnv8HXGwocG3Hs8dwzZmeFzByA&callback=initMap" async defer></script>
