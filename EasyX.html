@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,6 +22,7 @@
   input[type=text] {
   top=50%;
   width: 130px;
+  float: center;
   box-sizing: border-box;
   border: 2px solid #ccc;
   border-radius: 4px;
@@ -33,12 +35,7 @@
   -webkit-transition: width 0.4s ease-in-out;
   transition: width 0.4s ease-in-out;
 }
-.form{
-  position: absolute;
-  right:80px;
-  left:90px;
 
-}
 input[type=text]:focus {
   width: 100%;
 }
@@ -46,19 +43,26 @@ input[type=text]:focus {
     padding: 60px;
  text-align: center;
  color: white;
- font-size: 70px;
+ font-size: 88px;
   }
 
   </style>
   </head>
-  <<body>
+  <body>
     <div class="header">
     <p> EasyX </p>
     </div>
-  <form>
-    <<input type="text" name="search" value="I'm in....">
-  </form>
+    <button ondblclick="getmyLocation()">My Location</button>
+    <p id="button"></p>
+    <script>
+      function getmyLocatoin(){
+        if(navigator.geolocation){
+          navigator.geolocation.getCurrentPosition(showPoition)
+        }
+      }
+    </script>
     <video autoplay muted loop id="myVideo">
     <source src="ocean.mp4" type="video/mp4">
     </video>
   </body>
+  </html>
