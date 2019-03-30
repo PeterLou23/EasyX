@@ -111,18 +111,33 @@
             map: map,
             title: 'You are Here'
           });
+
+          findNearBy();
         }
 
+        function findNearBy() {
+          
+        
           // Format for request from places api
           // https://maps.googleapis.com/maps/api/place/nearbysearch/output?parameters
           //https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&keyword=cruise&key=YOUR_API_KEY
           // looking for places with tag <food>, <train-station>, <transit_station>
-          request = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat +","+ lon + "&radius=500&type=restaurant&keyword=cruise&key=AIzaSyALDxfdzvnv8HXGwocG3Hs8dwzZmeFzByA"
+          url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + lat +","+ lon + "&radius=500&type=food&key=AIzaSyALDxfdzvnv8HXGwocG3Hs8dwzZmeFzByA"
           //send request
-          var result = request
-          //result = JSON.parse(result)
-          //print(result)
+          var request = new XMLHttpRequest();
+          request.open("GET", url);
+          request.send();
+          var result;
+          request.onreadystatechange=(e)=>{
+            result = request.responseText;
+            console.log(result);
+          }
 
+          
+          console.log(result)
+          result = JSON.parse(result)
+          console.log(result)
+        } 
         </script>
     </div>
 
