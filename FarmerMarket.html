@@ -1,106 +1,82 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name='Markets'>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Farmer Markets</title>
-        <link rel="stylesheet" href="style.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    </head>
-    <body>
-      <video autoplay muted loop id="myVideo">
+
+<head>
+    <meta name='Markets'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Markets</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+
+<body>
+    <video autoplay muted loop id="myVideo">
         <source src="ocean.mp4" type="video/mp4">
-      </video>
-        <header>
-            <ul>
-                <li><a href="EasyX.html">Home</a></li>
-                <li><a href="FarmerMarket.html">Markets</a></li>
-            </ul>
-        </header>
-        <div class="header">
-            <p> EasyX </p>
-        </div>
-        <form>
-            <input type="text" id="in_text" placeholder="Enter you zipcode"  ><br>
-        </form>
-        <button onclick="displayMarkets()">Submit</button>
+    </video>
+    <header>
+        <ul>
+            <li><a href="EasyX.html">Home</a></li>
+            <li><a href="FarmerMarket.html">Markets</a></li>
+        </ul>
+    </header>
+    <div class="header">
+        <p> EasyX </p>
+    </div>
+    <form>
+        <input type="text" id="in_text" placeholder="Enter you zipcode"><br>
+    </form>
+    <button onclick="displayMarkets()">Submit</button>
 
-        <script>
-            var array;
-            function getJson() {
-                console.log("Starting json requests");
-                var input = document.getElementById("in_text").value;
-                console.log("input: "+input)
-                var url = "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=" + input;
-
-                var responce;
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = startList();
-                console.log("Sending get to " + url);
-                xhttp.open("GET",url, true);
-                xhttp.send();
+    <script>
+        var array;
+        function displayMarkets() {
+            var input = document.getElementById("in_text").value;
+            //checks if jquary is ready
+            $(document).ready(getResults(input));
         }
-
-        function startList(){
-            console.log("state: "+this.readyState);
-            console.log("status: "+this.status)
-            console.log("responce: "+this.responce)
-            if (this.readyState == 4 && this.status == 200) {
-                this.response;
-                console.log("Responce set up");
-                Console.log("responce: ");
-                console.log(this.response);
-                var resutls = JSON.parse(json);
-                console.log("new resutls")
-                console.log(resutls);
-            }
-
+        // API Call from USAD
+        function getResults(zip) {
+            // or function getResults(lat, lng) {
+            $.ajax({
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                // submit a get request to the restful service zipSearch or locSearch.
+                url: "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=" + zip,
+                // or url: "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/locSearch?lat=" + lat + "&lng=" + lng,
+                dataType: 'jsonp',
+                jsonpCallback: 'searchResultsHandler'
+            });
         }
+        //iterate through the JSON result object.
+        function searchResultsHandler(searchResults) {
+            listcontainer = document.getElementById('Markets');
+            var child = document.createElement("ul");
+            child.innerHTML = "Distance: Name of Market";
+            listcontainer.appendChild(child);
 
-            function displayMarkets(){
-                var input = document.getElementById("in_text").value;
-                //checks if jquary is ready
-                $(document).ready(getResults(input));
-            }
-            // API Call from USAD
-            function getResults(zip) {
-                // or function getResults(lat, lng) {
-                    $.ajax({
-                        type: "GET",
-                        contentType: "application/json; charset=utf-8",
-                        // submit a get request to the restful service zipSearch or locSearch.
-                        url: "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/zipSearch?zip=" + zip,
-                        // or url: "http://search.ams.usda.gov/farmersmarkets/v1/data.svc/locSearch?lat=" + lat + "&lng=" + lng,
-                        dataType: 'jsonp',
-                        jsonpCallback: 'searchResultsHandler'
-                    });
-                }
-                //iterate through the JSON result object.
-                function searchResultsHandler(searchResults) {
-
-                    console.log(searchResults)
-                    for (var key in searchResults) {
-                        var results = searchResults[key];
-                        console.log("key: "+key)
-                        if(results.length > 0){
-                            array = results;
-                            for (var i = 0; i < results.length; i++) {
-                                var result = results[i];
-                                for (var key in result) {
-                                    console.log(result);
-                                    var temp = result.marketname+"\n";
-                                    result.marketname= result.marketname+"\t"
-                                    listcontainer = document.getElementById('Markets');
-                                    listcontainer.appendChild(document.createElement("ul",result.marketname))
-                                    document.getElementById('Markets').innerHTML += result.marketname;
-                                }
-                            }
-                        }
+            console.log(searchResults)
+            for (var key in searchResults) {
+                var results = searchResults[key];
+                console.log("key: " + key)
+                if (results.length > 0) {
+                    array = results;
+                    console.log("The Array: " + array)
+                    for (var i = 0; i < results.length; i++) {
+                        var result = results[i];
+                        console.log("In loop: " + result.marketname);
+                        listcontainer = document.getElementById('Markets');
+                        child = document.createElement("ul");
+                        child.innerHTML = result.marketname;
+                        console.log("Child: " + child.innerHTML);
+                        listcontainer.appendChild(child);
                     }
-                    console.log("places: "+array)
                 }
-        </script>
-        <div id="Markets"></div>
-    </body>
+            }
+            console.log("places: " + array)
+        }
+    </script>
+    <div id="Markets"></div>
+</body>
+
 </html>
