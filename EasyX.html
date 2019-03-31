@@ -253,6 +253,7 @@ button:active {
           // https://maps.googleapis.com/maps/api/place/nearbysearch/output?parameters
           //https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8670522,151.1957362&radius=1500&type=restaurant&keyword=cruise&key=YOUR_API_KEY
           // looking for places with tag <food>, <train-station>, <transit_station>
+          
           //send request
           console.log("Starting places")
           placeService = new google.maps.places.PlacesService(map);
@@ -261,6 +262,7 @@ button:active {
             location: loc,
             radius: 500,
             type: ['train-station','food','transit_station','store']
+
           }
 
 
