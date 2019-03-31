@@ -3,6 +3,14 @@ body{
     font-family: Arial;
     margin:0
 }
+#myVideo{
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+}
 
 .header{
     padding: 60px;
@@ -28,7 +36,7 @@ li{
 }
 
 li a{
-    display: block;
+    display: black;
     color: #c1dff0;
     text-align: center;
     padding: 10px;
@@ -37,6 +45,7 @@ li a{
 }
 #Markets{
     text-align: center;
+    color: white;
 }
 
 #Markets ul{

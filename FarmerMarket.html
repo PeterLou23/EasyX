@@ -9,9 +9,12 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     </head>
     <body>
+      <video autoplay muted loop id="myVideo">
+        <source src="ocean.mp4" type="video/mp4">
+      </video>
         <header>
             <ul>
-                <li><a href="EasyX.html">Home</a></li> 
+                <li><a href="EasyX.html">Home</a></li>
                 <li><a href="FarmerMarket.html">Markets</a></li>
             </ul>
         </header>
@@ -33,12 +36,12 @@
 
                 var responce;
                 var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = startList(); 
+                xhttp.onreadystatechange = startList();
                 console.log("Sending get to " + url);
                 xhttp.open("GET",url, true);
                 xhttp.send();
         }
-        
+
         function startList(){
             console.log("state: "+this.readyState);
             console.log("status: "+this.status)
@@ -52,7 +55,7 @@
                 console.log("new resutls")
                 console.log(resutls);
             }
-                
+
         }
 
             function displayMarkets(){
@@ -75,7 +78,7 @@
                 }
                 //iterate through the JSON result object.
                 function searchResultsHandler(searchResults) {
-                    
+
                     console.log(searchResults)
                     for (var key in searchResults) {
                         var results = searchResults[key];
